@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import Spinner from '../../Shared/Spinner';
+import Spinner from '../Shared/Spinner';
 import Project from './Project';
 
 const Projects = () => {
