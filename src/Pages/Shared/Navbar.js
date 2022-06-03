@@ -11,8 +11,8 @@ const Navbar = () => {
         signOut(auth);
     }
     const menuItems = <>
-        <li className='mx-3 font-bold'><NavLink to="/">Home</NavLink></li>
-        <li className='mx-3 my-3 lg:my-0 font-bold'><NavLink to="/admin">Admin</NavLink></li>
+        <li className='mx-3 font-bold font-mono text-xl'><NavLink to="/">Home</NavLink></li>
+        <li className='mx-3 my-3 lg:my-0 font-bold font-mono text-xl'><NavLink to="/admin">Admin</NavLink></li>
     </>
     return (
         <div className="navbar bg-base-100 lg:px-12">
@@ -35,8 +35,9 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
+                <h2 className='mr-6 font-bold hidden lg:block'>{user?.displayName}</h2>
                 {
-                    user ? <button onClick={handleSignOut} className="btn font-bold text-white">SignOut</button> : <Link to="/login" className="btn font-bold text-white">Login</Link>
+                    user ? <button onClick={handleSignOut} className="btn font-bold text-white font-mono text-xl">SignOut</button> : <Link to="/login" className="btn font-bold text-white font-mono text-xl">Login</Link>
                 }
             </div>
         </div>

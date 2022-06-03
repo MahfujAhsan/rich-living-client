@@ -7,12 +7,10 @@ import { useUpdateProfile, useCreateUserWithEmailAndPassword } from 'react-fireb
 import { useSendEmailVerification } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.int';
 import Spinner from '../Shared/Spinner';
-import axios from 'axios';
 import { toast } from 'react-toastify';
-import useToken from '../../Hooks/useToken';
 
 const SignUp = () => {
-    const imageStorageKey = 'aa780f948d0fcc6c59b034aa5fa85ca9';
+    // const imageStorageKey = 'aa780f948d0fcc6c59b034aa5fa85ca9';
     const [passwordShown, setPasswordShown] = useState(false);
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     let errorText;
@@ -28,32 +26,36 @@ const SignUp = () => {
     const togglePassword = () => {
         setPasswordShown(!passwordShown)
     };
-    if (user) {
-        navigate('/login')
-    }
     if (loading || updating || sending) {
         return <Spinner />
     };
     if (error || updateError || verificationError) {
         errorText = <p className='text-red-600 mt-3'>{error?.message || updateError?.message || verificationError?.message}</p>
-    }
+    };
+    if (user) {
+        navigate('/login')
+    };
     const onSubmit = async data => {
-        const image = data.image[0];
-        const formData = new FormData();
-        formData.append('image', image);
-        axios.post(`https://api.imgbb.com/1/upload?key=${imageStorageKey}`, formData, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        })
-            .then(function (response) {
-                console.log(response)
-            })
-        const email = data.email;
-        const password = data.password;
-        await createUserWithEmailAndPassword(email, password);
-        await updateProfile({ displayName: data.name, photoURL: data.image });
+        // const image = data.image[0];
+        // const formData = new FormData();
+        // const email = data.email;
+        // const password = data.password;
+        // const name = data.name;
+        // formData.append('image', image);
+        // axios.post(`https://api.imgbb.com/1/upload?key=${imageStorageKey}`, formData, {
+        //     headers: {
+        //         'content-type': 'multipart/form-data'
+        //     }
+        // })
+        //     .then(function (response) {
+        //         if (response.data) {
+        //             const image = response.data.data.url;
+        //         }
+
+        //     })
+        await createUserWithEmailAndPassword(data.email, data.password);
         await sendEmailVerification();
+        await updateProfile({ displayName: data.name});
         toast.info('Please Verify Your Email');
         reset();
     };
@@ -79,7 +81,7 @@ const SignUp = () => {
                             {errors.name?.type === 'required' && <span className="label-text-alt text-red-600">{errors.name.message}</span>}
                         </label>
                     </div>
-                    <div className="form-control w-full mx-auto max-w-sm">
+                    {/* <div className="form-control w-full mx-auto max-w-sm">
                         <label className="label">
                             <span className="label-text-alt font-bold">Your Photo:</span>
                         </label>
@@ -94,7 +96,7 @@ const SignUp = () => {
                         <label className="label">
                             {errors.image?.type === 'required' && <span className="label-text-alt text-red-600">{errors.image.message}</span>}
                         </label>
-                    </div>
+                    </div> */}
                     <div className="form-control w-full mx-auto max-w-sm">
                         <label className="label">
                             <span className="label-text-alt font-bold">Your Email:</span>

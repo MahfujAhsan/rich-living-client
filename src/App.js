@@ -8,7 +8,7 @@ import SignUp from './Pages/Login/SignUp';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from './Pages/Shared/ProtectedRoute';
-import SingleProject from './Pages/Home/SingleProject';
+import SingleService from './Pages/Home/SingleService';
 
 function App() {
   return (
@@ -16,9 +16,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='project/:id' element={
+        <Route path='booking/:id' element={
           <ProtectedRoute>
-            <SingleProject />
+            <SingleService/>
           </ProtectedRoute>} />
         <Route path='admin' element={<Admin />} />
         <Route path='login' element={<Login />} />
